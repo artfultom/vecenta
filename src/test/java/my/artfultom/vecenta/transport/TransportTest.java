@@ -16,6 +16,31 @@ import java.util.concurrent.CompletableFuture;
 public class TransportTest {
 
     @Test
+    public void f() {
+        byte x = (byte) 115;
+
+        String src = Integer.toBinaryString(x);
+
+        System.out.println(src);
+
+        boolean[] result = new boolean[8];
+        result[0] = (x >> 7 & 1) == 1;
+        result[1] = (x >> 6 & 1) == 1;
+        result[2] = (x >> 5 & 1) == 1;
+        result[3] = (x >> 4 & 1) == 1;
+        result[4] = (x >> 3 & 1) == 1;
+        result[5] = (x >> 2 & 1) == 1;
+        result[6] = (x >> 1 & 1) == 1;
+        result[7] = (x >> 0 & 1) == 1;
+
+        byte b = (byte)((result[0]?1<<7:0) + (result[1]?1<<6:0) + (result[2]?1<<5:0) +
+                (result[3]?1<<4:0) + (result[4]?1<<3:0) + (result[5]?1<<2:0) +
+                (result[6]?1<<1:0) + (result[7]?1<<0:0));
+
+        System.out.println(b);
+    }
+
+    @Test
     public void manyClients() {
         ServerMatcher matcher = new ServerMatcher();
         matcher.register(new MethodHandler("echo", (request) -> new Response(request.getParams()))); // TODO one or many?
